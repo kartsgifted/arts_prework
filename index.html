@@ -247,9 +247,9 @@ textarea.ans:disabled{background:var(--sunk);color:var(--ink)}
       <div class="info"><dl>
         <div class="row"><dt>대상</dt><dd>미술분야 심화 멘토링 참가 학생 전체</dd></div>
         <div class="row"><dt>과제 내용</dt><dd>여름 워크숍에서의 작품 제작 과정 및 경험에 대한 리뷰 작성</dd></div>
-        <div class="row"><dt>제출 기한</dt><dd><strong>10월 22일(목)까지</strong></dd></div>
+        <div class="row"><dt>제출 기한</dt><dd><strong>10월 22일(목) 23:59까지</strong></dd></div>
         <div class="row"><dt>제출 방법</dt><dd>이 페이지에서 문항별 답변 작성 후 제출</dd></div>
-        <div class="row"><dt>분량</dt><dd>네 문항 합쳐 A4 2쪽 정도 (문항당 500자 내외)</dd></div>
+        <div class="row"><dt>분량</dt><dd>문항당 500자 내외</dd></div>
       </dl></div>
       <p class="muted">제출한 내용은 10월 31일(토) 심화 멘토링 수업을 위한 참고자료로 활용될 예정입니다.</p>
     </div>
@@ -343,7 +343,7 @@ textarea.ans:disabled{background:var(--sunk);color:var(--ink)}
       <div class="block">
         <div class="guide">
           <p>다음 네 개의 질문을 중심으로 <b>전체 A4 2쪽 분량</b>의 글을 작성해 주세요.</p>
-          <p class="muted">문항당 <b>500자 정도</b>가 적당해요. 문항마다 글자 수 막대가 있고, 막대의 눈금이 500자 위치예요. 더 길게 써도 괜찮아요.</p>
+          <p class="muted">문항당 <b>500자 내외</b>로 작성해주세요.</p>
           <p class="muted">‘다음’, ‘이전’ 버튼으로 문항을 오갈 수 있어요. 순서대로 쓰지 않아도 돼요.</p>
         </div>
         <ul class="overview" id="overview"></ul>
@@ -556,8 +556,6 @@ function buildPages(){
           <div class="q-head"><span class="q-no">${i+1}</span><h2 class="page-h" tabindex="-1">${esc(q.t)}</h2></div>
           <div class="q-body">
             <p class="q-text">${esc(q.q)}</p>
-            <div style="display:grid;gap:6px"><span class="pts-label">이런 내용을 담아 보세요</span>
-              <ul class="pts">${q.p.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></div>
             <label class="sr" for="ans${i}">${i+1}번 답변</label>
             <textarea class="ans" id="ans${i}" data-i="${i}" placeholder="여기에 자유롭게 써 주세요."></textarea>
             <div class="meter">
@@ -565,7 +563,6 @@ function buildPages(){
               <div class="scale num" aria-hidden="true"><span style="left:0">0</span><span style="left:50%">500자</span><span style="left:100%">1,000자</span></div>
               <div class="meter-row"><span class="count num" id="cnt${i}">0자</span><span class="state" id="st${i}"></span></div>
             </div>
-            <p class="safe-line">${shieldSvg}자동 임시저장 중 · 창이 꺼져도 이어서 쓸 수 있어요</p>
           </div>
           <div class="q-attach">
             <div class="field">
