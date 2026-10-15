@@ -127,6 +127,13 @@ button,input,select{font:inherit;color:inherit}
 .sheet .s-empty{color:#b14}
 .sheet .s-files{margin-top:6px;font-size:13px;color:#555;display:flex;gap:6px;flex-wrap:wrap}
 .sheet .s-files a{color:#176C86}
+.btn-danger{color:var(--coral);border-color:color-mix(in srgb,var(--coral) 35%,var(--line));padding:6px 12px;font-size:13px}
+.btn-danger:hover{background:color-mix(in srgb,var(--coral) 10%,var(--surface))}
+.btn-danger.solid{background:var(--coral);border-color:var(--coral);color:#fff}
+.confirm{border:1.5px solid var(--coral);background:color-mix(in srgb,var(--coral) 7%,var(--surface));border-radius:12px;padding:14px 16px;display:grid;gap:10px;font-size:14px}
+.confirm strong{font-size:15px}
+.confirm .row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.bar-right{display:flex;gap:8px;align-items:center}
 .draftmark{background:var(--apricot-soft);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600}
 
 /* by question */
@@ -263,12 +270,26 @@ const SAMPLE = (() => {
 function demoData(){
   let db = {}; try{ db = JSON.parse(localStorage.getItem('artpw_demo_db')) || {}; }catch(e){}
   const mine = Object.values(db).map(r => ({name:r.name, birth:r.birth, submitted:r.submitted||null, draft:r.draft||null, submittedAt:r.submittedAt, firstSubmittedAt:r.firstSubmittedAt, savedAt:r.savedAt, count:r.count||0}));
-  return {ok:true, deadline:'2026-10-22T23:59:59+09:00', open:true, roster:SAMPLE.roster, records:[...SAMPLE.records, ...mine]};
+  let gone = []; try{ gone = JSON.parse(localStorage.getItem('artpw_demo_deleted')) || []; }catch(e){}
+  const alive = r => !gone.includes(normName(r.name)+'|'+r.birth);
+  return {ok:true, deadline:'2026-10-22T23:59:59+09:00', open:true, roster:SAMPLE.roster, records:[...SAMPLE.records.filter(alive), ...mine]};
+}
+function demoDelete(key){
+  try{
+    const db = JSON.parse(localStorage.getItem('artpw_demo_db')) || {}; delete db[key]; localStorage.setItem('artpw_demo_db', JSON.stringify(db));
+    const gone = JSON.parse(localStorage.getItem('artpw_demo_deleted')) || []; if (!gone.includes(key)) gone.push(key); localStorage.setItem('artpw_demo_deleted', JSON.stringify(gone));
+  }catch(e){}
+  return {ok:true};
 }
 
 async function load(code){
   if (DEMO){ await new Promise(r=>setTimeout(r,250)); return demoData(); }
   const res = await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'admin',code})});
+  const j = await res.json(); if (!j.ok){ const e=new Error(j.message); e.code=j.code; throw e; } return j;
+}
+async function removeRecord(key){
+  if (DEMO){ await new Promise(r=>setTimeout(r,300)); return demoDelete(key); }
+  const res = await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'adminDelete',code:CODE,key})});
   const j = await res.json(); if (!j.ok){ const e=new Error(j.message); e.code=j.code; throw e; } return j;
 }
 
@@ -339,7 +360,13 @@ function renderDetail(){
   if (r.status==='미작성'){ el.innerHTML = `<div class="empty"><b>${esc(r.name)}</b> 학생은 아직 작성을 시작하지 않았어요.</div>`; return; }
   const showDraft = !r.submitted, d = r.submitted || r.draft;
   el.innerHTML = `
-    <div class="bar"><span class="num">생년월일 ${esc(r.birth)} · ${r.submittedAt?`최종 제출 ${fmt(r.submittedAt)} (${r.count}회)`:''}</span><span class="pill ${STATUS[r.status].cls}">${r.status}</span></div>
+    <div class="bar"><span class="num">생년월일 ${esc(r.birth)} · ${r.submittedAt?`최종 제출 ${fmt(r.submittedAt)} (${r.count}회)`:''}</span><span class="bar-right"><span class="pill ${STATUS[r.status].cls}">${r.status}</span><button class="btn btn-danger" data-del-open>삭제</button></span></div>
+    <div class="confirm" id="delBox" hidden>
+      <strong>${esc(r.name)} 학생의 작성 내용을 삭제할까요?</strong>
+      <p>답변 4개와 첨부파일${fileCount(r.submitted||r.draft)?` ${fileCount(r.submitted||r.draft)}개`:''}가 모두 지워지고, 학생 화면에서도 처음 상태로 보입니다.</p>
+      <p class="muted">시트의 ‘삭제 기록’ 탭에 사본이 남고, 첨부파일은 드라이브 휴지통으로 옮겨집니다.</p>
+      <div class="row"><button class="btn" data-del-cancel>취소</button><button class="btn btn-danger solid" data-del-go>삭제하기</button></div>
+    </div>
     ${showDraft?'<p class="draftmark">아직 제출하지 않은 임시저장본이에요.</p>':''}
     ${r.status==='제출 후 수정 중'?'<p class="draftmark">제출 뒤 학생이 고치는 중이에요. 아래는 마지막 제출본이에요.</p>':''}
     <div class="sheet">${sheetHTML(d, r.name)}</div>`;
@@ -369,6 +396,22 @@ $('#gateForm').addEventListener('submit', async e => {
     $('#gate').hidden = true; $('#app').hidden = false; renderAll();
   }catch(ex){ err.textContent = ex.code==='bad_code' ? '관리자 코드가 맞지 않아요.' : '불러오지 못했어요. 잠시 후 다시 시도해 주세요.'; err.hidden = false; }
   finally{ btn.disabled = false; }
+});
+$('#detail').addEventListener('click', async e => {
+  const box = $('#delBox'); if (!box) return;
+  if (e.target.closest('[data-del-open]')){ box.hidden = false; box.querySelector('[data-del-cancel]').focus(); return; }
+  if (e.target.closest('[data-del-cancel]')){ box.hidden = true; return; }
+  const go = e.target.closest('[data-del-go]'); if (!go) return;
+  const r = ROWS.find(x=>x.key===sel); if (!r) return;
+  go.disabled = true; go.textContent = '삭제 중…';
+  try{
+    await removeRecord(r.key);
+    RAW = await load(CODE); renderAll();
+    toast(`${r.name} 학생의 작성 내용을 삭제했어요.`);
+  }catch(ex){
+    if (ex.code==='not_found'){ RAW = await load(CODE).catch(()=>RAW); renderAll(); toast('이미 삭제된 내용이에요.'); }
+    else { go.disabled = false; go.textContent = '삭제하기'; toast('삭제하지 못했어요. 잠시 후 다시 시도해 주세요.'); }
+  }
 });
 $('#refresh').addEventListener('click', async () => { try{ RAW = await load(CODE); renderAll(); toast('최신 내용으로 바꿨어요.'); }catch(e){ toast('불러오지 못했어요.'); } });
 $('#filters').addEventListener('click', e => { const b=e.target.closest('[data-f]'); if(!b) return; filter=b.dataset.f; renderSum(); renderList(); });
