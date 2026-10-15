@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>미술분야 심화 멘토링 사전과제</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="2026 K예술영재 프로젝트 미술분야 심화 멘토링 사전과제 작성 페이지">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+@font-face{font-family:'Paperlogy';font-weight:500;font-display:swap;src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2')}
+@font-face{font-family:'Paperlogy';font-weight:700;font-display:swap;src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2')}
+@font-face{font-family:'Paperlogy';font-weight:800;font-display:swap;src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2')}
+
+/* Layout: 한 줄 세로 흐름(최대 720px) · 살구색 띠 머리 · 하단 고정 행동 막대 · 종이 같은 문항 카드 */
+:root{
+  --paper:#FAF9F5; --surface:#FFFFFF; --sunk:#F2F0EA;
+  --ink:#212326; --ink-2:#585F61; --ink-3:#8A9193; --line:#E3E0D7;
+  --teal:#176C86; --teal-deep:#1C6077; --on-teal:#FFFFFF; --teal-soft:#E3EFF2;
+  --apricot:#FFB098; --apricot-soft:#FFEDE5; --on-apricot:#3A2018;
+  --coral:#E84958; --ok:#2C7A57; --ok-soft:#E3F1EA;
+  --logo-bg:transparent;
+  --display:'Paperlogy','Pretendard','Noto Sans KR',system-ui,sans-serif;
+  --body:'Pretendard','Noto Sans KR',system-ui,-apple-system,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#121718; --surface:#1A2123; --sunk:#151B1D;
+  --ink:#ECEAE4; --ink-2:#A9B1B2; --ink-3:#768082; --line:#2B3538;
+  --teal:#62B6CE; --teal-deep:#86C8DA; --on-teal:#0B1A1F; --teal-soft:#183039;
+  --apricot:#FFB098; --apricot-soft:#3A2822; --on-apricot:#2B140D;
+  --coral:#FF6F7C; --ok:#6CC59A; --ok-soft:#173026; --logo-bg:#F4F2EC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#121718; --surface:#1A2123; --sunk:#151B1D;
+  --ink:#ECEAE4; --ink-2:#A9B1B2; --ink-3:#768082; --line:#2B3538;
+  --teal:#62B6CE; --teal-deep:#86C8DA; --on-teal:#0B1A1F; --teal-soft:#183039;
+  --apricot:#FFB098; --apricot-soft:#3A2822; --on-apricot:#2B140D;
+  --coral:#FF6F7C; --ok:#6CC59A; --ok-soft:#173026; --logo-bg:#F4F2EC; color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;word-break:keep-all;overflow-wrap:anywhere}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.3}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.screen{padding-bottom:120px}
+.muted{color:var(--ink-2)}
+.num{font-variant-numeric:tabular-nums}
+
+/* demo ribbon */
+.demo{background:var(--sunk);border-bottom:1px solid var(--line);font-size:13px;color:var(--ink-2)}
+.demo .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;padding-block:8px;flex-wrap:wrap}
+.demo a{color:var(--teal);font-weight:600}
+
+/* hero */
+.hero{background:var(--apricot);color:var(--on-apricot)}
+.hero .wrap{padding-block:28px 36px;display:grid;gap:18px}
+.logo{display:inline-flex;background:var(--logo-bg);border-radius:8px;padding:4px 6px;justify-self:start}
+.logo img{height:30px;width:auto;display:block}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.06em}
+.hero h1{font-size:clamp(30px,7vw,44px);font-weight:800;letter-spacing:-.01em}
+.hero .sub{font-family:var(--display);font-weight:500;font-size:clamp(17px,3.6vw,21px)}
+.dday{display:inline-flex;align-items:center;gap:8px;background:var(--on-apricot);color:var(--apricot);border-radius:999px;padding:6px 14px;font-weight:700;font-size:14px;justify-self:start}
+
+.block{padding-block:28px 0;display:grid;gap:16px}
+.lead{font-size:17px}
+.info{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:6px 20px}
+.info dl{margin:0;display:grid}
+.info .row{display:grid;grid-template-columns:88px 1fr;gap:12px;padding-block:12px;border-top:1px solid var(--line)}
+.info .row:first-child{border-top:0}
+.info dt{color:var(--ink-2);font-size:14px;font-weight:600;padding-top:1px}
+.info dd{margin:0;min-width:0}
+.info strong{color:var(--teal)}
+.qpreview{display:grid;gap:8px;margin:0;padding:0;list-style:none;counter-reset:q}
+.qpreview li{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:baseline}
+.qpreview li::before{counter-increment:q;content:counter(q);font-family:var(--display);font-weight:800;color:var(--teal);font-size:18px}
+.h-sec{font-size:18px;font-weight:700}
+
+.safe{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--teal-soft);border-radius:var(--r);padding:16px 18px;color:var(--ink)}
+.safe svg{width:24px;height:24px;color:var(--teal);margin-top:2px}
+.safe strong{display:block;font-family:var(--display);font-weight:700;color:var(--teal-deep);margin-bottom:2px}
+
+/* forms */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px;display:grid;gap:16px}
+.field{display:grid;gap:6px}
+.field label,.label{font-weight:700;font-size:15px}
+.input{width:100%;border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:13px 14px;font-size:17px}
+.input:focus{border-color:var(--teal);outline:none}
+.hint{font-size:13px;color:var(--ink-2)}
+.err{color:var(--coral);font-size:14px;font-weight:600}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:9px 18px;font-weight:600;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:var(--on-teal)}
+.seg button:disabled{cursor:default;opacity:.7}
+
+/* buttons */
+.btn{appearance:none;border:0;border-radius:12px;padding:15px 22px;font-weight:700;font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn-primary{background:var(--teal);color:var(--on-teal)}
+.btn-primary:hover{background:var(--teal-deep)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-coral{background:var(--coral);color:#fff}
+.btn:disabled{opacity:.55;cursor:default}
+.linkbtn{background:none;border:0;padding:0;color:var(--teal);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:14px}
+
+/* bottom bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bar .wrap{display:flex;gap:12px;align-items:center;padding-block:12px}
+.bar .grow{flex:1;min-width:0}
+.bar .btn{flex-shrink:0}
+.bar.single .btn{flex:1}
+
+/* write screen header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px;flex-wrap:wrap}
+.who{font-weight:700;font-family:var(--display)}
+.save{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2)}
+.save .dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.save[data-s="saving"] .dot{background:var(--apricot);animation:pulse 1s infinite}
+.save[data-s="local"] .dot{background:var(--apricot)}
+.save[data-s="error"] .dot{background:var(--coral)}
+@keyframes pulse{50%{opacity:.3}}
+
+.notice{border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600}
+.notice.ok{background:var(--ok-soft);color:var(--ok)}
+.notice.warn{background:var(--apricot-soft);color:var(--ink)}
+.notice.closed{background:var(--sunk);color:var(--ink-2);border:1px solid var(--line)}
+
+.guide{display:grid;gap:4px;font-size:15px}
+.guide b{color:var(--teal)}
+
+/* question card */
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.q-head{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:20px 20px 0}
+.q-no{font-family:var(--display);font-weight:800;font-size:15px;width:34px;height:34px;border-radius:50%;background:var(--apricot);color:var(--on-apricot);display:grid;place-items:center}
+.q-head h2{font-size:19px;font-weight:700;padding-top:3px}
+.q-body{padding:12px 20px 20px;display:grid;gap:14px}
+.q-text{color:var(--ink-2)}
+.pts{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.pts li{font-size:13px;background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--ink-2)}
+.pts-label{font-size:12px;font-weight:700;color:var(--ink-3);letter-spacing:.04em}
+textarea.ans{width:100%;min-height:200px;resize:vertical;border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:14px 15px;font-size:16px;line-height:1.8;field-sizing:content;max-height:none}
+textarea.ans:focus{outline:none;border-color:var(--teal);background:var(--surface)}
+textarea.ans:disabled{background:var(--sunk);color:var(--ink)}
+
+/* ruler counter */
+.meter{display:grid;gap:6px}
+.ruler{position:relative;height:8px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);overflow:visible}
+.ruler .fill{position:absolute;left:0;top:-1px;bottom:-1px;border-radius:999px;background:var(--ink-3);transition:width .2s}
+.ruler[data-s="good"] .fill{background:var(--ok)}
+.ruler[data-s="more"] .fill{background:var(--teal)}
+.ruler .tick{position:absolute;left:50%;top:-5px;bottom:-5px;width:2px;background:var(--ink);opacity:.55}
+.meter-row{display:flex;justify-content:space-between;gap:8px;font-size:13px;flex-wrap:wrap}
+.meter-row .count{font-weight:700}
+.meter-row .state{color:var(--ink-2)}
+.meter-row .state.good{color:var(--ok);font-weight:600}
+.scale{position:relative;height:14px;font-size:11px;color:var(--ink-3)}
+.scale span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.scale span:first-child{transform:none}
+.scale span:last-child{transform:translateX(-100%)}
+
+/* attachments */
+.files{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.files li{display:flex;align-items:center;gap:10px;background:var(--sunk);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px}
+.files .fname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.files .fsize{color:var(--ink-3);font-size:12px}
+.files button{background:none;border:0;color:var(--ink-2);cursor:pointer;font-size:13px;text-decoration:underline}
+.drop{border:1.5px dashed var(--line);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.drop.over{border-color:var(--teal);background:var(--teal-soft)}
+
+.total{display:grid;gap:2px;font-size:13px;line-height:1.35}
+.total b{font-size:16px;font-family:var(--display)}
+
+/* preview sheet */
+.sheet{background:#fff;color:#1d1d1d;border:1px solid var(--line);border-radius:4px;box-shadow:0 10px 30px rgba(20,30,35,.10);padding:clamp(22px,6vw,56px) clamp(18px,6vw,60px);font-size:15px;line-height:1.8;max-width:794px;margin:0 auto}
+.sheet .s-top{text-align:center;display:grid;gap:4px;padding-bottom:18px;border-bottom:2px solid #1d1d1d}
+.sheet .s-top .t1{font-family:var(--display);font-weight:800;font-size:clamp(16px,3.6vw,20px)}
+.sheet .s-top .t2{font-family:var(--display);font-weight:500;font-size:clamp(14px,3vw,16px);color:#444}
+.sheet table{color:inherit;width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:14px}
+.sheet th,.sheet td{border:1px solid #bbb;padding:8px 10px;text-align:left}
+.sheet th{background:#f3f1ec;width:84px;font-weight:700;letter-spacing:.2em}
+.sheet .s-q{margin-top:20px}
+.sheet .s-q h3{font-family:var(--body);font-size:15.5px;font-weight:800}
+.sheet .s-q .s-ask{color:#555;font-size:13.5px;margin:2px 0 8px}
+.sheet .s-q .s-ans{white-space:pre-wrap}
+.sheet .s-empty{color:#b14;font-style:normal}
+.sheet .s-files{margin-top:22px;font-size:13px;color:#555}
+
+.done{text-align:center;display:grid;gap:14px;justify-items:center;padding-top:56px}
+.done .mark{width:64px;height:64px;border-radius:50%;background:var(--apricot);color:var(--on-apricot);display:grid;place-items:center}
+.done h1{font-size:28px;font-weight:800}
+
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;font-size:14px;z-index:40;max-width:calc(100% - 32px)}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid currentColor;border-right-color:transparent;animation:rot .7s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (min-width:700px){.q-head{padding:24px 26px 0}.q-body{padding:12px 26px 24px}.card{padding:26px}}
+</style>
+</head>
+<body>
+<div class="demo" id="demoBar" hidden>
+  <div class="wrap"><span>미리보기 모드 · 입력한 내용은 이 브라우저에만 저장됩니다</span><a href="admin.html">관리자 화면 미리보기 →</a></div>
+</div>
+
+<!-- 1. 안내 -->
+<section class="screen" id="s-intro">
+  <header class="hero">
+    <div class="wrap">
+      <span class="logo"><img src="kriga-logo.png" alt="한국예술영재교육연구원"></span>
+      <div style="display:grid;gap:8px">
+        <span class="eyebrow">2026 K예술영재 프로젝트 · 미술분야 심화 멘토링</span>
+        <h1>사전과제</h1>
+        <p class="sub">여름 워크숍을 통한 발견과 성장, 그리고 새로운 탐구</p>
+      </div>
+      <span class="dday num" id="dday">제출 기한 10월 22일(목)</span>
+    </div>
+  </header>
+  <div class="wrap">
+    <div class="block">
+      <p class="lead">이번 사전 과제는 지난 여름 워크숍에서 진행한 작품과 창작 과정을 돌아보고, 그 과정에서의 경험과 배움을 바탕으로 앞으로의 작업에 대해 생각해보기 위한 활동입니다.</p>
+      <p class="muted">아래 안내사항을 확인한 후, 각 문항에 따라 자신의 경험과 생각을 작성해 주세요.</p>
+    </div>
+    <div class="block">
+      <h2 class="h-sec">과제 안내</h2>
+      <div class="info"><dl>
+        <div class="row"><dt>대상</dt><dd>미술분야 심화 멘토링 참가 학생 전체</dd></div>
+        <div class="row"><dt>과제 내용</dt><dd>여름 워크숍에서의 작품 제작 과정 및 경험에 대한 리뷰 작성</dd></div>
+        <div class="row"><dt>제출 기한</dt><dd><strong>10월 22일(목)까지</strong></dd></div>
+        <div class="row"><dt>제출 방법</dt><dd>이 페이지에서 문항별 답변 작성 후 제출</dd></div>
+        <div class="row"><dt>분량</dt><dd>네 문항 합쳐 A4 2쪽 정도 (문항당 500자 내외)</dd></div>
+      </dl></div>
+      <p class="muted">제출한 내용은 10월 31일(토) 심화 멘토링 수업을 위한 참고자료로 활용될 예정입니다.</p>
+    </div>
+    <div class="block">
+      <h2 class="h-sec">이런 질문에 답하게 돼요</h2>
+      <ol class="qpreview">
+        <li>제작 의도와 표현 방법</li>
+        <li>제작 과정과 피드백을 통한 변화</li>
+        <li>작업에 대한 성찰과 자기 발견</li>
+        <li>워크숍 경험의 발전과 심화 멘토링 방향</li>
+      </ol>
+    </div>
+    <div class="block">
+      <div class="safe">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div><strong>쓰는 내용은 자동으로 임시저장돼요</strong>중간에 창이 닫히거나 휴대폰이 꺼져도 괜찮아요. 같은 이름과 생년월일로 다시 들어오면 쓰던 곳부터 이어서 쓸 수 있으니 안심하고 작성하세요.</div>
+      </div>
+    </div>
+  </div>
+  <div class="bar single"><div class="wrap"><button class="btn btn-primary" id="goLogin">과제 작성 시작하기</button></div></div>
+</section>
+
+<!-- 2. 본인 확인 -->
+<section class="screen" id="s-login" hidden>
+  <div class="wrap">
+    <div class="block" style="padding-top:36px">
+      <button class="linkbtn" data-back="intro">← 안내로 돌아가기</button>
+      <h1 style="font-size:26px;font-weight:800">본인 확인</h1>
+      <p class="muted">처음이면 새로 시작하고, 전에 쓰던 내용이 있으면 그대로 불러와요.</p>
+    </div>
+    <form class="block" id="loginForm" novalidate>
+      <div class="card">
+        <div class="field">
+          <label for="inName">이름</label>
+          <input class="input" id="inName" autocomplete="name" placeholder="예) 홍길동" required>
+        </div>
+        <div class="field">
+          <label for="inBirth">생년월일</label>
+          <input class="input num" id="inBirth" inputmode="numeric" autocomplete="bday" placeholder="예) 2010.03.15" maxlength="10" required>
+          <span class="hint">숫자 8자리만 입력하면 됩니다.</span>
+        </div>
+        <p class="err" id="loginErr" hidden></p>
+        <p class="hint">입력한 이름과 생년월일은 본인 확인과 이어 쓰기에만 사용됩니다.</p>
+      </div>
+    </form>
+  </div>
+  <div class="bar single"><div class="wrap"><button class="btn btn-primary" id="loginBtn" form="loginForm" type="submit">확인</button></div></div>
+</section>
+
+<!-- 3. 작성 -->
+<section class="screen" id="s-write" hidden>
+  <div class="top"><div class="wrap">
+    <span class="who" id="whoName"></span>
+    <span class="save" id="saveState" data-s="idle" aria-live="polite"><span class="dot"></span><span id="saveText">자동 임시저장 켜짐</span></span>
+  </div></div>
+  <div class="wrap">
+    <div class="block">
+      <div id="statusNote"></div>
+      <div class="safe">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div><strong>자동 임시저장 중이에요</strong>창이 닫히거나 휴대폰이 꺼져도 쓴 내용은 사라지지 않아요. 다시 들어오면 이어서 쓸 수 있으니 안심하세요.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="card">
+        <div class="field">
+          <span class="label" id="lvLabel">학교</span>
+          <div class="seg" role="group" aria-labelledby="lvLabel" id="segLevel">
+            <button type="button" data-v="중학교" aria-pressed="false">중학교</button>
+            <button type="button" data-v="고등학교" aria-pressed="false">고등학교</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="label" id="grLabel">학년</span>
+          <div class="seg" role="group" aria-labelledby="grLabel" id="segGrade">
+            <button type="button" data-v="1" aria-pressed="false">1학년</button>
+            <button type="button" data-v="2" aria-pressed="false">2학년</button>
+            <button type="button" data-v="3" aria-pressed="false">3학년</button>
+          </div>
+        </div>
+        <p class="err" id="infoErr" hidden>학교와 학년을 선택해 주세요.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="guide">
+        <p>다음 네 개의 질문을 중심으로 <b>전체 A4 2쪽 분량</b>의 글을 작성해 주세요.</p>
+        <p class="muted">문항당 <b>500자 정도</b>가 적당해요. 막대의 눈금이 500자 위치예요. 더 길게 써도 괜찮아요.</p>
+      </div>
+    </div>
+
+    <div class="block" id="qList"></div>
+
+    <div class="block">
+      <div class="card">
+        <div class="field">
+          <span class="label">첨부파일 <span class="muted" style="font-weight:500">(선택)</span></span>
+          <span class="hint">필요한 경우에만 첨부하세요. 파일당 10MB까지, 최대 5개까지 올릴 수 있어요.</span>
+        </div>
+        <ul class="files" id="fileList"></ul>
+        <div class="drop" id="drop">
+          <span class="hint">파일을 여기로 끌어 놓거나</span>
+          <label class="btn btn-ghost" for="fileIn" style="padding:10px 16px;font-size:14px" id="fileLabel">파일 선택</label>
+          <input type="file" id="fileIn" multiple hidden>
+        </div>
+        <p class="err" id="fileErr" hidden></p>
+      </div>
+    </div>
+    <div class="block"><button class="linkbtn" id="logout">다른 이름으로 시작하기</button></div>
+  </div>
+  <div class="bar"><div class="wrap">
+    <div class="grow total"><b class="num" id="totalCount">0자</b><span class="muted num" id="totalPages">A4 약 0쪽 · 목표 2쪽</span></div>
+    <button class="btn btn-primary" id="toPreview">미리보기</button>
+  </div></div>
+</section>
+
+<!-- 4. 미리보기 -->
+<section class="screen" id="s-preview" hidden>
+  <div class="wrap">
+    <div class="block" style="padding-top:28px">
+      <button class="linkbtn" data-back="write">← 고쳐 쓰기</button>
+      <h1 style="font-size:24px;font-weight:800" id="pvTitle">제출 전 확인</h1>
+      <div id="pvNote"></div>
+    </div>
+  </div>
+  <div class="wrap" style="max-width:860px;padding-top:20px"><div class="sheet" id="sheet"></div></div>
+  <div class="bar"><div class="wrap">
+    <button class="btn btn-ghost" data-back="write">고쳐 쓰기</button>
+    <button class="btn btn-primary" id="submitBtn" style="flex:1">제출하기</button>
+  </div></div>
+</section>
+
+<!-- 5. 완료 -->
+<section class="screen" id="s-done" hidden>
+  <div class="wrap">
+    <div class="done">
+      <div class="mark"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h1>제출했어요</h1>
+      <p class="num" id="doneTime"></p>
+      <p class="muted" id="doneMsg">10월 22일(목)까지는 같은 이름과 생년월일로 다시 들어와 고칠 수 있어요.<br>고친 뒤에는 ‘제출하기’를 한 번 더 눌러야 반영돼요.</p>
+      <p class="muted">제출한 내용은 10월 31일(토) 심화 멘토링 수업의 참고자료로 쓰여요.</p>
+    </div>
+  </div>
+  <div class="bar single"><div class="wrap"><button class="btn btn-ghost" id="backToWrite">내 답변 다시 보기</button></div></div>
+</section>
+
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+/* ===== 설정 ===== */
+const API_URL = '';   // Apps Script 웹앱 주소(…/exec). 비워 두면 미리보기 모드로 동작합니다.
+const MAX_FILES = 5, MAX_MB = 10, GOAL = 500;
+
+const QUESTIONS = [
+  {t:'제작 의도와 표현 방법',
+   q:'여름 워크숍에서 작품을 통해 무엇을 표현하고자 했으며, 그 의도를 담기 위해 어떤 표현 방법을 선택했나요?',
+   p:['표현하고 싶었던 것','의도를 담기 위해 고른 표현 방법']},
+  {t:'제작 과정과 피드백을 통한 변화',
+   q:'제작 과정에서 어떤 시도를 했고 어떤 어려움을 겪었나요? 친구·교강사·멘토와의 대화와 피드백은 자신의 생각과 작업에 어떤 변화를 가져왔나요?',
+   p:['해 본 시도','겪었던 어려움','대화·피드백 뒤 달라진 점']},
+  {t:'작업에 대한 성찰과 자기 발견',
+   q:'제작 과정과 결과물을 돌아볼 때, 만족스러운 점과 보완하고 싶은 점은 무엇인가요? 이 경험을 통해 자신의 관심과 강점에 대해 새롭게 알게 된 점은 무엇인가요?',
+   p:['만족스러운 점','보완하고 싶은 점','새로 알게 된 나의 관심과 강점']},
+  {t:'워크숍 경험의 발전과 심화 멘토링 방향',
+   q:'여름 워크숍에서 갖게 된 관심이나 시도한 작업을 심화 멘토링을 통해 어떻게 확장하고 발전시키고 싶나요? 이와 관련하여 선생님들께 질문하거나 조언 받고 싶은 내용은 무엇인가요?',
+   p:['넓히고 싶은 관심이나 작업','선생님들께 묻고 싶은 것']}
+];
+
+const DEMO = !API_URL;
+const $ = s => document.querySelector(s);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const store = {
+  get(k, s=localStorage){ try{ return JSON.parse(s.getItem(k)); }catch(e){ return null; } },
+  set(k, v, s=localStorage){ try{ s.setItem(k, JSON.stringify(v)); }catch(e){} },
+  del(k, s=localStorage){ try{ s.removeItem(k); }catch(e){} }
+};
+const normName = n => String(n||'').replace(/\s+/g,'');
+const keyOf = (n,b) => normName(n)+'|'+b;
+const fmtTime = iso => { const d=new Date(iso); return isNaN(d)?'':`${d.getMonth()+1}월 ${d.getDate()}일 ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; };
+const hhmm = iso => { const d=new Date(iso); return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; };
+const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const len = s => [...String(s||'')].length;
+const kb = n => n>1048576 ? (n/1048576).toFixed(1)+'MB' : Math.max(1,Math.round(n/1024))+'KB';
+
+function toast(msg, ms=2600){ const t=$('#toast'); t.textContent=msg; t.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>t.hidden=true, ms); }
+
+/* ===== 미리보기 모드용 가상 서버 (이 브라우저에만 저장) ===== */
+const Mock = {
+  db(){ return store.get('artpw_demo_db') || {}; },
+  put(d){ store.set('artpw_demo_db', d); },
+  async call(action, p){
+    await sleep(action==='upload' ? 600 : 250);
+    const now = new Date().toISOString();
+    if (action==='config') return {ok:true, deadline:'2026-10-22T23:59:59+09:00', open:true, contact:'kgifted2026@naver.com'};
+    const d = this.db(), k = keyOf(p.name, p.birth), r = d[k] || null;
+    if (action==='login') return {ok:true, record:r};
+    if (action==='save'){ d[k] = {...(r||{}), name:p.name, birth:p.birth, draft:p.data, savedAt:now}; this.put(d); return {ok:true, savedAt:now}; }
+    if (action==='submit'){ d[k] = {...(r||{}), name:p.name, birth:p.birth, draft:p.data, submitted:p.data, savedAt:now, submittedAt:now, firstSubmittedAt:(r&&r.firstSubmittedAt)||now, count:((r&&r.count)||0)+1}; this.put(d); return {ok:true, submittedAt:now}; }
+    if (action==='upload') return {ok:true, file:{id:'demo_'+Date.now()+Math.random().toString(36).slice(2,6), name:p.file.name, size:p.file.size, url:''}};
+    if (action==='deleteFile') return {ok:true};
+    return {ok:false, message:'알 수 없는 요청'};
+  }
+};
+
+async function api(action, payload={}, opts={}){
+  if (DEMO){ const j = await Mock.call(action, payload); if(!j.ok) throw new Error(j.message); return j; }
+  const res = await fetch(API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({action, ...payload}), keepalive:!!opts.keepalive});
+  const j = await res.json();
+  if (!j.ok){ const e = new Error(j.message || '요청을 처리하지 못했어요.'); e.code = j.code; throw e; }
+  return j;
+}
+
+/* ===== 상태 ===== */
+const S = {
+  cfg:{deadline:'2026-10-22T23:59:59+09:00', open:true, contact:'kgifted2026@naver.com'},
+  user:null, record:null, readOnly:false,
+  data:{level:'', grade:'', answers:['','','',''], files:[]},
+  savedAt:null, dirty:false, saving:false, timer:null
+};
+const blank = () => ({level:'', grade:'', answers:['','','',''], files:[]});
+const sig = d => JSON.stringify([d.level, d.grade, d.answers, (d.files||[]).map(f=>f.id)]);
+const isClosed = () => !S.cfg.open || Date.now() > new Date(S.cfg.deadline).getTime();
+
+function show(name){
+  document.querySelectorAll('.screen').forEach(s => s.hidden = s.id !== 's-'+name);
+  window.scrollTo(0,0);
+}
+
+/* ===== 안내 ===== */
+function renderDday(){
+  const end = new Date(S.cfg.deadline), now = new Date();
+  const days = Math.ceil((new Date(end.getFullYear(),end.getMonth(),end.getDate()) - new Date(now.getFullYear(),now.getMonth(),now.getDate()))/86400000);
+  const label = `${end.getMonth()+1}월 ${end.getDate()}일(${'일월화수목금토'[end.getDay()]})`;
+  $('#dday').textContent = isClosed() ? `제출 기한 종료 · ${label}` : days===0 ? `오늘 마감 · ${label} 23:59` : `D-${days} · ${label}까지`;
+}
+
+/* ===== 본인 확인 ===== */
+const birthIn = $('#inBirth');
+birthIn.addEventListener('input', () => {
+  const d = birthIn.value.replace(/\D/g,'').slice(0,8);
+  birthIn.value = d.length>6 ? `${d.slice(0,4)}.${d.slice(4,6)}.${d.slice(6)}` : d.length>4 ? `${d.slice(0,4)}.${d.slice(4)}` : d;
+});
+function parseBirth(v){
+  const d = v.replace(/\D/g,'');
+  if (d.length!==8) return null;
+  const y=+d.slice(0,4), m=+d.slice(4,6), day=+d.slice(6,8), dt=new Date(y,m-1,day);
+  if (y<1990 || y>2020 || dt.getMonth()!==m-1 || dt.getDate()!==day) return null;
+  return `${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}`;
+}
+$('#loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const err = $('#loginErr'); err.hidden = true;
+  const name = $('#inName').value.trim(), birth = parseBirth(birthIn.value);
+  if (!name){ err.textContent='이름을 입력해 주세요.'; err.hidden=false; return; }
+  if (!birth){ err.textContent='생년월일을 숫자 8자리로 입력해 주세요. 예) 20100315'; err.hidden=false; return; }
+  const btn = $('#loginBtn'); btn.disabled = true; btn.innerHTML = '<span class="spin"></span> 확인 중';
+  try{
+    const j = await api('login', {name, birth});
+    startWriting({name, birth}, j.record);
+  }catch(ex){
+    err.textContent = ex.code==='not_in_roster'
+      ? `참가 학생 명단에서 찾지 못했어요. 이름과 생년월일을 다시 확인해 주세요. 계속 안 되면 ${S.cfg.contact}로 문의해 주세요.`
+      : '연결이 원활하지 않아요. 잠시 후 다시 시도해 주세요.';
+    err.hidden = false;
+  }finally{ btn.disabled=false; btn.textContent='확인'; }
+});
+
+/* ===== 작성 ===== */
+function startWriting(user, record){
+  S.user = user; S.record = record || null;
+  store.set('artpw_session', user, sessionStorage);
+  const local = store.get('artpw_local_'+keyOf(user.name,user.birth));
+  const server = record && record.draft ? {data:record.draft, savedAt:record.savedAt} : null;
+  let pick = server;
+  if (local && (!server || new Date(local.savedAt) > new Date(server.savedAt))) pick = local;
+  S.data = Object.assign(blank(), pick ? JSON.parse(JSON.stringify(pick.data)) : {});
+  S.data.answers = [0,1,2,3].map(i => (S.data.answers||[])[i] || '');
+  S.data.files = S.data.files || [];
+  S.savedAt = pick ? pick.savedAt : null;
+  S.readOnly = isClosed();
+  if (S.readOnly && record && record.submitted) S.data = Object.assign(blank(), JSON.parse(JSON.stringify(record.submitted)));
+  $('#whoName').textContent = user.name;
+  buildQuestions(); fillWrite(); renderStatus();
+  setSave(S.savedAt ? 'saved' : 'idle');
+  if (pick===local && local && server && !S.readOnly){ S.dirty = true; queueSave(300); }
+  show('write');
+}
+
+function buildQuestions(){
+  $('#qList').innerHTML = QUESTIONS.map((q,i)=>`
+    <article class="q" id="q${i}">
+      <div class="q-head"><span class="q-no">${i+1}</span><h2>${esc(q.t)}</h2></div>
+      <div class="q-body">
+        <p class="q-text">${esc(q.q)}</p>
+        <div style="display:grid;gap:6px"><span class="pts-label">이런 내용을 담아 보세요</span>
+          <ul class="pts">${q.p.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></div>
+        <label class="sr" for="ans${i}" style="position:absolute;left:-9999px">${i+1}번 답변</label>
+        <textarea class="ans" id="ans${i}" data-i="${i}" placeholder="여기에 자유롭게 써 주세요."></textarea>
+        <div class="meter">
+          <div class="ruler" id="ruler${i}"><span class="fill"></span><span class="tick" title="권장 500자"></span></div>
+          <div class="scale num"><span style="left:0">0</span><span style="left:50%">500자</span><span style="left:100%">1,000자</span></div>
+          <div class="meter-row"><span class="count num" id="cnt${i}">0자</span><span class="state" id="st${i}"></span></div>
+        </div>
+      </div>
+    </article>`).join('');
+  document.querySelectorAll('textarea.ans').forEach(t => {
+    t.addEventListener('input', () => { S.data.answers[+t.dataset.i] = t.value; autosize(t); updateCount(+t.dataset.i); touch(); });
+    t.addEventListener('blur', () => { if (S.dirty) queueSave(0); });
+  });
+}
+function autosize(t){ if (CSS.supports && CSS.supports('field-sizing','content')) return; t.style.height='auto'; t.style.height = Math.max(200, t.scrollHeight+4)+'px'; }
+
+function fillWrite(){
+  document.querySelectorAll('textarea.ans').forEach((t,i) => { t.value = S.data.answers[i]; t.disabled = S.readOnly; autosize(t); updateCount(i); });
+  setSeg('#segLevel', S.data.level); setSeg('#segGrade', S.data.grade);
+  document.querySelectorAll('.seg button').forEach(b => b.disabled = S.readOnly);
+  $('#drop').hidden = S.readOnly;
+  renderFiles(); updateTotal();
+  $('#toPreview').textContent = S.readOnly ? '내 답변 보기' : '미리보기';
+}
+
+function updateCount(i){
+  const n = len(S.data.answers[i]);
+  $('#cnt'+i).textContent = n.toLocaleString()+'자 (공백 포함)';
+  const r = $('#ruler'+i), st = $('#st'+i);
+  r.querySelector('.fill').style.width = Math.min(100, n/10)+'%';
+  st.className = 'state';
+  if (n===0){ r.dataset.s=''; st.textContent='권장 500자 내외'; }
+  else if (n<400){ r.dataset.s=''; st.textContent=`권장 분량까지 ${(GOAL-n).toLocaleString()}자`; }
+  else if (n<=700){ r.dataset.s='good'; st.textContent='적당한 분량이에요'; st.classList.add('good'); }
+  else { r.dataset.s='more'; st.textContent='충분해요 · 더 써도 괜찮아요'; }
+  updateTotal();
+}
+function updateTotal(){
+  const total = S.data.answers.reduce((a,s)=>a+len(s),0);
+  $('#totalCount').textContent = total.toLocaleString()+'자';
+  $('#totalPages').textContent = `A4 약 ${(total/1000).toFixed(1)}쪽 · 목표 2쪽`;
+}
+
+function setSeg(sel, v){ document.querySelectorAll(sel+' button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v===v))); }
+$('#segLevel').addEventListener('click', e => { const b=e.target.closest('button'); if(!b||S.readOnly) return; S.data.level=b.dataset.v; setSeg('#segLevel',S.data.level); $('#infoErr').hidden=true; touch(); queueSave(400); });
+$('#segGrade').addEventListener('click', e => { const b=e.target.closest('button'); if(!b||S.readOnly) return; S.data.grade=b.dataset.v; setSeg('#segGrade',S.data.grade); $('#infoErr').hidden=true; touch(); queueSave(400); });
+
+function renderStatus(){
+  const r = S.record, el = $('#statusNote');
+  if (S.readOnly){
+    el.innerHTML = `<p class="notice closed">제출 기한이 지나 더 이상 고칠 수 없어요. ${r&&r.submitted ? '제출한 내용은 ‘내 답변 보기’에서 확인할 수 있어요.' : ''}</p>`;
+    return;
+  }
+  if (r && r.submitted){
+    const changed = sig(S.data) !== sig(r.submitted);
+    el.innerHTML = changed
+      ? `<p class="notice warn">${fmtTime(r.submittedAt)}에 제출했어요. 그 뒤로 고친 내용이 있어요. 다시 제출해야 반영돼요.</p>`
+      : `<p class="notice ok">${fmtTime(r.submittedAt)}에 제출했어요. 기한 안에는 고쳐서 다시 제출할 수 있어요.</p>`;
+  } else el.innerHTML = '';
+}
+
+/* ===== 자동 임시저장 ===== */
+function touch(){
+  if (S.readOnly) return;
+  S.dirty = true;
+  const now = new Date().toISOString();
+  store.set('artpw_local_'+keyOf(S.user.name,S.user.birth), {data:S.data, savedAt:now});
+  setSave('local-pending');
+  queueSave(2500);
+}
+function queueSave(ms){ clearTimeout(S.timer); S.timer = setTimeout(saveNow, ms); }
+async function saveNow(){
+  if (!S.dirty || S.readOnly) return;
+  if (S.saving){ queueSave(800); return; }
+  S.saving = true; S.dirty = false; setSave('saving');
+  try{
+    const j = await api('save', {...S.user, data:S.data});
+    S.savedAt = j.savedAt; setSave(S.dirty ? 'saving' : 'saved');
+    if (S.record && S.record.submitted) renderStatus();
+  }catch(ex){
+    S.dirty = true;
+    if (ex.code==='closed'){ S.cfg.open=false; S.readOnly=true; fillWrite(); renderStatus(); setSave('closed'); }
+    else { setSave('local'); queueSave(15000); }
+  }finally{ S.saving = false; }
+}
+function setSave(state){
+  const el = $('#saveState'), tx = $('#saveText');
+  const map = {
+    'idle':['idle','자동 임시저장 켜짐'],
+    'local-pending':['saving','임시저장 중…'],
+    'saving':['saving','임시저장 중…'],
+    'saved':['saved', `임시저장됨 ${S.savedAt ? hhmm(S.savedAt) : ''}`],
+    'local':['local','이 기기에 임시저장됨 · 연결되면 다시 저장해요'],
+    'error':['error','저장하지 못했어요'],
+    'closed':['error','제출 기한 종료']
+  };
+  const [s,t] = map[state] || map.idle; el.dataset.s = s; tx.textContent = t;
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState==='hidden' && S.dirty && S.user && !S.readOnly){
+    api('save', {...S.user, data:S.data}, {keepalive:true}).catch(()=>{});
+    S.dirty = false;
+  }
+});
+setInterval(() => { if (S.dirty) saveNow(); }, 30000);
+
+/* ===== 첨부파일 ===== */
+function renderFiles(){
+  const fs = S.data.files || [];
+  $('#fileList').innerHTML = fs.map((f,i)=>`<li><span class="fname">${esc(f.name)}</span><span class="fsize num">${kb(f.size||0)}</span>${S.readOnly?'':`<button type="button" data-del="${i}">삭제</button>`}</li>`).join('');
+  $('#fileLabel').textContent = fs.length ? '파일 더 추가' : '파일 선택';
+}
+$('#fileList').addEventListener('click', async e => {
+  const b = e.target.closest('[data-del]'); if (!b) return;
+  const f = S.data.files[+b.dataset.del];
+  S.data.files.splice(+b.dataset.del,1); renderFiles(); touch();
+  api('deleteFile', {...S.user, fileId:f.id}).catch(()=>{});
+});
+$('#fileIn').addEventListener('change', e => { addFiles([...e.target.files]); e.target.value=''; });
+const drop = $('#drop');
+['dragenter','dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave','drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => addFiles([...e.dataTransfer.files]));
+const readB64 = f => new Promise((res,rej) => { const r=new FileReader(); r.onload=()=>res(String(r.result).split(',')[1]); r.onerror=rej; r.readAsDataURL(f); });
+async function addFiles(list){
+  const err = $('#fileErr'); err.hidden = true;
+  for (const f of list){
+    if (S.data.files.length >= MAX_FILES){ err.textContent=`첨부파일은 ${MAX_FILES}개까지 올릴 수 있어요.`; err.hidden=false; break; }
+    if (f.size > MAX_MB*1048576){ err.textContent=`‘${f.name}’은(는) ${MAX_MB}MB를 넘어서 올릴 수 없어요.`; err.hidden=false; continue; }
+    const li = document.createElement('li'); li.innerHTML = `<span class="spin"></span><span class="fname">${esc(f.name)}</span><span class="fsize">올리는 중</span>`;
+    $('#fileList').appendChild(li);
+    try{
+      const file = {name:f.name, type:f.type||'application/octet-stream', size:f.size};
+      if (!DEMO) file.data = await readB64(f);
+      const j = await api('upload', {...S.user, file});
+      S.data.files.push(j.file); touch(); queueSave(200);
+    }catch(ex){ err.textContent = ex.code==='closed' ? '제출 기한이 지나 파일을 올릴 수 없어요.' : `‘${f.name}’을(를) 올리지 못했어요. 다시 시도해 주세요.`; err.hidden=false; }
+    renderFiles();
+  }
+}
+
+/* ===== 미리보기 · 제출 ===== */
+function sheetHTML(d, name){
+  const lv = v => `${d.level===v?'■':'□'} ${v}`;
+  return `
+    <div class="s-top"><span class="t1">2026 K예술영재 프로젝트 미술분야 심화 멘토링 사전과제</span><span class="t2">여름 워크숍을 통한 발견과 성장, 그리고 새로운 탐구</span></div>
+    <table><tr><th>학년</th><td>${lv('중학교')} &nbsp; ${lv('고등학교')} &nbsp; ( ${esc(d.grade)||'&nbsp;&nbsp;'} )학년</td></tr><tr><th>이름</th><td>${esc(name)}</td></tr></table>
+    ${QUESTIONS.map((q,i)=>`<div class="s-q"><h3>${i+1}. ${esc(q.t)}</h3><p class="s-ask">${esc(q.q)}</p>
+      <p class="s-ans">${d.answers[i] ? esc(d.answers[i]) : '<span class="s-empty">(작성하지 않음)</span>'}</p></div>`).join('')}
+    ${(d.files&&d.files.length) ? `<p class="s-files">첨부파일: ${d.files.map(f=>esc(f.name)).join(', ')}</p>` : ''}`;
+}
+$('#toPreview').addEventListener('click', () => {
+  if (!S.readOnly && (!S.data.level || !S.data.grade)){ $('#infoErr').hidden=false; $('#segLevel').scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  if (S.dirty) saveNow();
+  const d = S.readOnly && S.record && S.record.submitted ? S.record.submitted : S.data;
+  $('#sheet').innerHTML = sheetHTML(d, S.user.name);
+  const empty = d.answers.map((a,i)=>a.trim()?null:i+1).filter(Boolean);
+  const total = d.answers.reduce((a,s)=>a+len(s),0);
+  $('#pvTitle').textContent = S.readOnly ? '내 답변' : '제출 전 확인';
+  $('#pvNote').innerHTML = S.readOnly ? '' :
+    `<p class="muted num">전체 ${total.toLocaleString()}자 · A4 약 ${(total/1000).toFixed(1)}쪽</p>` +
+    (empty.length ? `<p class="notice warn" style="margin-top:10px">${empty.join(', ')}번 문항이 비어 있어요. 이대로 제출해도 되고, 돌아가서 더 써도 돼요.</p>` : '');
+  $('#submitBtn').hidden = S.readOnly;
+  show('preview');
+});
+document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => show(b.dataset.back)));
+$('#submitBtn').addEventListener('click', async () => {
+  const btn = $('#submitBtn'); btn.disabled = true; btn.innerHTML = '<span class="spin"></span> 제출 중';
+  clearTimeout(S.timer);
+  try{
+    const j = await api('submit', {...S.user, data:S.data});
+    S.dirty = false; S.savedAt = j.submittedAt;
+    S.record = Object.assign(S.record||{}, {submitted:JSON.parse(JSON.stringify(S.data)), submittedAt:j.submittedAt, draft:S.data, savedAt:j.submittedAt});
+    store.del('artpw_local_'+keyOf(S.user.name,S.user.birth));
+    $('#doneTime').textContent = `${fmtTime(j.submittedAt)} 제출 완료`;
+    renderStatus(); setSave('saved');
+    show('done');
+  }catch(ex){
+    toast(ex.code==='closed' ? '제출 기한이 지나 제출할 수 없어요.' : '제출하지 못했어요. 쓴 내용은 저장되어 있으니 잠시 후 다시 눌러 주세요.', 4000);
+  }finally{ btn.disabled=false; btn.textContent='제출하기'; }
+});
+$('#backToWrite').addEventListener('click', () => show('write'));
+
+/* ===== 시작 ===== */
+$('#goLogin').addEventListener('click', () => { show('login'); setTimeout(()=>$('#inName').focus(), 50); });
+$('#logout').addEventListener('click', () => { if (S.dirty) saveNow(); store.del('artpw_session', sessionStorage); S.user=null; $('#loginForm').reset(); show('intro'); });
+
+(async function init(){
+  $('#demoBar').hidden = !DEMO;
+  renderDday();
+  try{ const c = await api('config'); S.cfg = {deadline:c.deadline, open:c.open, contact:c.contact||S.cfg.contact}; renderDday(); }catch(e){}
+  const sess = store.get('artpw_session', sessionStorage);
+  if (sess && sess.name){
+    try{ const j = await api('login', sess); startWriting(sess, j.record); }catch(e){}
+  }
+})();
+</script>
+
+</body>
+</html>
