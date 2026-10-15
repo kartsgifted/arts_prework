@@ -125,7 +125,7 @@ button,input,select{font:inherit;color:inherit}
 .sheet .s-ans{white-space:pre-wrap}
 .sheet .s-cnt{font-size:12px;color:#888;text-align:right}
 .sheet .s-empty{color:#b14}
-.sheet .s-files{margin-top:18px;font-size:13px;color:#555;display:flex;gap:6px;flex-wrap:wrap}
+.sheet .s-files{margin-top:6px;font-size:13px;color:#555;display:flex;gap:6px;flex-wrap:wrap}
 .sheet .s-files a{color:#176C86}
 .draftmark{background:var(--apricot-soft);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600}
 
@@ -138,6 +138,8 @@ button,input,select{font:inherit;color:inherit}
 .ans header{display:flex;justify-content:space-between;gap:8px;align-items:center}
 .ans .who{font-weight:700}
 .ans .txt{white-space:pre-wrap;font-size:14.5px;line-height:1.75}
+.ans .afiles{font-size:13px;color:var(--ink-2)}
+.ans .afiles a{color:var(--teal)}
 .ans .cnt{font-size:12px;color:var(--ink-3)}
 
 #printArea{display:none}
@@ -252,7 +254,7 @@ const SAMPLE = (() => {
       {name:'최유나',birth:'2009-06-08',school:'예시고등학교',grade:'2'}
     ],
     records:[
-      {name:'김하린',birth:'2011-04-02',submitted:{level:'중학교',grade:'3',answers:a1,files:[{id:'x1',name:'워크숍_작품사진.jpg',size:2400000,url:''}]},draft:null,submittedAt:'2026-10-17T21:14:00+09:00',firstSubmittedAt:'2026-10-17T21:14:00+09:00',savedAt:'2026-10-17T21:14:00+09:00',count:1},
+      {name:'김하린',birth:'2011-04-02',submitted:{level:'중학교',grade:'3',answers:a1,files:[[{id:'x1',name:'워크숍_작품사진.jpg',size:2400000,url:''}],[{id:'x2',name:'밝기지도_스케치.png',size:860000,url:''}],[],[]]},draft:null,submittedAt:'2026-10-17T21:14:00+09:00',firstSubmittedAt:'2026-10-17T21:14:00+09:00',savedAt:'2026-10-17T21:14:00+09:00',count:1},
       {name:'이도윤',birth:'2010-09-17',submitted:{level:'고등학교',grade:'1',answers:a2,files:[]},draft:{level:'고등학교',grade:'1',answers:[a2[0],a2[1]+' 지금 다시 보니 이 부분을 더 쓰고 싶어요.',a2[2],a2[3]],files:[]},submittedAt:'2026-10-16T19:40:00+09:00',firstSubmittedAt:'2026-10-16T19:40:00+09:00',savedAt:'2026-10-18T10:02:00+09:00',count:1},
       {name:'박서진',birth:'2012-01-25',submitted:null,draft:{level:'중학교',grade:'2',answers:d3,files:[]},savedAt:'2026-10-18T22:31:00+09:00',count:0}
     ]
@@ -272,14 +274,24 @@ async function load(code){
 
 /* ===== 데이터 가공 ===== */
 let RAW = null, ROWS = [], CODE = '', filter = '전체', sel = null, qi = 0;
-const sig = d => d ? JSON.stringify([d.level,d.grade,d.answers,(d.files||[]).map(f=>f.id)]) : '';
+/* 첨부파일은 문항별 목록 4개 [[…],[…],[…],[…]] — 예전 형식(한 줄 목록)도 받아 줌 */
+function normalize(d){
+  if (!d) return null;
+  let f = d.files || [];
+  if (f.length && !Array.isArray(f[0])) f = [f,[],[],[]];
+  return {level:d.level||'', grade:String(d.grade||''), answers:[0,1,2,3].map(i=>(d.answers||[])[i]||''), files:[0,1,2,3].map(i=>Array.isArray(f[i])?f[i]:[])};
+}
+const sig = d => d ? JSON.stringify([d.level,d.grade,d.answers,d.files.map(a=>a.map(f=>f.id))]) : '';
+const fileCount = d => d ? d.files.reduce((a,l)=>a+l.length,0) : 0;
+const fileLink = f => f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.name)}</a>` : esc(f.name);
 function build(){
   const byKey = new Map();
-  RAW.records.forEach(r => {
+  RAW.records.forEach(r0 => {
+    const r = {...r0, submitted:normalize(r0.submitted), draft:normalize(r0.draft)};
     const k = normName(r.name)+'|'+r.birth;
     const status = r.submitted ? (r.draft && sig(r.draft)!==sig(r.submitted) ? '제출 후 수정 중' : '제출 완료') : '작성 중';
     const base = r.submitted || r.draft || {};
-    byKey.set(k, {...r, key:k, status, level:base.level||'', grade:base.grade||'', chars:total(r.submitted||r.draft), files:(base.files||[]).length, inRoster:false});
+    byKey.set(k, {...r, key:k, status, level:base.level||'', grade:base.grade||'', chars:total(r.submitted||r.draft), files:fileCount(r.submitted||r.draft), inRoster:false});
   });
   RAW.roster.forEach(p => {
     const k = normName(p.name)+'|'+p.birth;
@@ -319,8 +331,7 @@ function sheetHTML(d, name){
   const lv = v => `${d.level===v?'■':'□'} ${v}`;
   return `<div class="s-top"><span class="t1">2026 K예술영재 프로젝트 미술분야 심화 멘토링 사전과제</span><span class="t2">여름 워크숍을 통한 발견과 성장, 그리고 새로운 탐구</span></div>
     <table><tr><th>학년</th><td>${lv('중학교')} &nbsp; ${lv('고등학교')} &nbsp; ( ${esc(d.grade)||'&nbsp;&nbsp;'} )학년</td></tr><tr><th>이름</th><td>${esc(name)}</td></tr></table>
-    ${QUESTIONS.map((q,i)=>`<div class="s-q"><h3>${i+1}. ${esc(q.t)}</h3><p class="s-ask">${esc(q.q)}</p><p class="s-ans">${d.answers[i]?esc(d.answers[i]):'<span class="s-empty">(작성하지 않음)</span>'}</p><p class="s-cnt num">${len(d.answers[i]).toLocaleString()}자</p></div>`).join('')}
-    ${(d.files||[]).length?`<div class="s-files">첨부파일: ${d.files.map(f=>f.url?`<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.name)}</a>`:esc(f.name)).join(' · ')}</div>`:''}`;
+    ${QUESTIONS.map((q,i)=>`<div class="s-q"><h3>${i+1}. ${esc(q.t)}</h3><p class="s-ask">${esc(q.q)}</p><p class="s-ans">${d.answers[i]?esc(d.answers[i]):'<span class="s-empty">(작성하지 않음)</span>'}</p>${d.files[i].length?`<div class="s-files">첨부파일: ${d.files[i].map(fileLink).join(' · ')}</div>`:''}<p class="s-cnt num">${len(d.answers[i]).toLocaleString()}자</p></div>`).join('')}`;
 }
 function renderDetail(){
   const r = ROWS.find(x=>x.key===sel), el = $('#detail');
@@ -341,7 +352,7 @@ function renderQuestion(){
   $('#answers').innerHTML = rows.length ? rows.map(r => {
     const d = r.submitted || r.draft, a = d.answers[qi] || '';
     return `<article class="ans"><header><span class="who">${esc(r.name)} <span class="muted" style="font-weight:500">${esc(d.level)} ${esc(d.grade)}학년</span></span>${r.submitted?'':'<span class="pill p-draft">작성 중</span>'}</header>
-      <p class="txt">${a?esc(a):'<span class="muted">(작성하지 않음)</span>'}</p><span class="cnt num">${len(a).toLocaleString()}자</span></article>`;
+      <p class="txt">${a?esc(a):'<span class="muted">(작성하지 않음)</span>'}</p>${d.files[qi].length?`<p class="afiles">첨부파일: ${d.files[qi].map(fileLink).join(' · ')}</p>`:''}<span class="cnt num">${len(a).toLocaleString()}자</span></article>`;
   }).join('') : '<div class="empty">아직 제출된 답변이 없어요.</div>';
 }
 function renderAll(){ build(); renderSum(); renderList(); renderDetail(); renderQuestion(); }
@@ -378,8 +389,8 @@ $('#printAll').addEventListener('click', () => {
 });
 $('#csv').addEventListener('click', () => {
   const head = ['이름','생년월일','학교급','학년','상태','전체 글자수',...QUESTIONS.map((q,i)=>`${i+1}. ${q.t}`),'첨부파일','최종 제출','제출 횟수'];
-  const lines = ROWS.map(r => { const d = r.submitted || r.draft || {answers:[],files:[]};
-    return [r.name,r.birth,r.level,r.grade,r.status,r.chars,...[0,1,2,3].map(i=>d.answers[i]||''),(d.files||[]).map(f=>f.name+(f.url?' '+f.url:'')).join(' / '),fmt(r.submittedAt),r.count||0]; });
+  const lines = ROWS.map(r => { const d = r.submitted || r.draft || normalize({});
+    return [r.name,r.birth,r.level,r.grade,r.status,r.chars,...[0,1,2,3].map(i=>d.answers[i]||''),d.files.map((l,i)=>l.map(f=>`[${i+1}번] ${f.name}${f.url?' '+f.url:''}`).join(' / ')).filter(Boolean).join(' / '),fmt(r.submittedAt),r.count||0]; });
   const csv = '﻿' + [head,...lines].map(row => row.map(v => `"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\r\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
   const t = new Date(); a.download = `미술분야_사전과제_제출현황_${t.getFullYear()}${String(t.getMonth()+1).padStart(2,'0')}${String(t.getDate()).padStart(2,'0')}.csv`; a.click();
